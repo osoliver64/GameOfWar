@@ -1,8 +1,10 @@
 // Load variables from .env
-require("dotenv").config();
+import "dotenv/config";
+
+import {Deck} from "./model/Deck.js";
 
 // Import express framwork to create web server
-const express = require("express");
+import express, { json } from "express";
 
 // Create Express application instance
 const app = express();
@@ -11,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Enable server to automatically parse incoming JSON data in request bodies
-app.use(express.json());
+app.use(json());
 
 // Define a GET route at "/api/hello" that responds to HTTP GET requests
 app.get("/api/hello", (request, response) => {
@@ -21,6 +23,12 @@ app.get("/api/hello", (request, response) => {
 app.get("/api/dorothea", (req, res) => {
   res.json({"Drink": ["Coffee", "Tea", "Yerba Mate"]});
 });
+
+app.get("/api/deck", (req, res) => {
+  const deckManager = new Deck();
+  const deck = deckManager.getDeck();
+  res.json(deck);
+})
 
 // Start the server and make it listen on the specified port
 app.listen(PORT, () => {
