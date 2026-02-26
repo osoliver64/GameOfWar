@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  display: flex;
+  align-items: left;
+  background-color: #cbcbcb;
+  justify-content: space-between;
+  color: rgb(25, 70, 25);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.titleIcon {
+  width: 50px;
+}
+
+.playing-card {
+  width: 100px;
+}
