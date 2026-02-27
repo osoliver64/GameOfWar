@@ -1,16 +1,20 @@
 // Load variables from .env
 import "dotenv/config";
-
-import {Deck} from "./model/Deck.js";
-
 // Import express framwork to create web server
 import express, { json } from "express";
+import {Deck} from "./model/Deck.js";
+import cors from "cors";
 
 // Create Express application instance
 const app = express();
 
+const corsOptions = {
+  origin: "http://localhost:5173",
+};
+app.use(cors(corsOptions));
+
 // Define the port number where the server will listen for requests
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 // Enable server to automatically parse incoming JSON data in request bodies
 app.use(json());
@@ -21,7 +25,7 @@ app.get("/api/hello", (request, response) => {
 });
 
 app.get("/api/dorothea", (req, res) => {
-  res.json({"Drink": ["Coffee", "Tea", "Yerba Mate"]});
+  res.json({"drinks": ["Coffee", "Tea", "Yerba Mate"]});
 });
 
 app.get("/api/deck", (req, res) => {
