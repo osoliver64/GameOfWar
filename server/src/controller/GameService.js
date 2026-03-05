@@ -2,15 +2,18 @@ import DeckManager from "../model/DeckManager.js";
 
 
 export class GameService {
-    constructor() {
-      this.deck = new DeckManager();
-    }
+  constructor() {
+    this.deck = new DeckManager();
+  }
+  playTurn() {
+    let cards = this.deck.dealTwoCards();
 
-    playTurn() {
-      let cards = this.deck.dealTwoCards();
+    if (cards == null) {
+      return null;
+    }
+    else {
       let cardA = cards[0];
       let cardB = cards[1];
-
       let winner = (cardA.value > cardB.value) ? "A" : "B";
 
       return {
@@ -19,4 +22,5 @@ export class GameService {
         winner: winner
       }
     }
+  }
 }
