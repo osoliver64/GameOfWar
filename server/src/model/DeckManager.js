@@ -10,6 +10,9 @@ export default class DeckManager {
         this.#stack.push(new Card(cardValue, suit));
       }
     }
+    for (let card of this.#stack) {
+      console.log(card);
+    }
     this.#shuffleDeck();
   }
 
@@ -18,7 +21,12 @@ export default class DeckManager {
   }
   
   dealTwoCards() {
-    return this.#stack.splice(-2);
+    if (this.#stack.length > 1) {
+      return this.#stack.splice(-2);
+    }
+    else {
+      return null;
+    }
   }
 
   #shuffleDeck() {
