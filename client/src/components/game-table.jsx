@@ -1,21 +1,50 @@
+import { useState } from "react";
 import "../App.css"
 import Card from "./card.jsx"
+import axios from "axios";
 
 function GameTable() {
 
-  const deck = []
-  const suits = ['S', 'C', 'H', 'D']
+  const [hand, setHand] = useState(null);
+  const [handsPlayed, setHandsPlayed] = useState(0);
 
-  for (let i = 1; i <= 13; i++) {
-    for (let suit of suits)
-      deck.push(<Card 
-        key={`${i}${suit}`}
-        cardId={`${i}${suit}`}
-        turnedDown={false} />)
+  console.log(hand);
+
+  const retrieveHand =  async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/playTurn");
+      setHand(response.data);
+      setHandsPlayed(handsPlayed + 1);
+    }
+    catch (error) {
+      console.error("Fetch error", error.message);
+    }
   }
 
-  return <>{deck}</>
+
+    if (handsPlayed >= 26) {
+    return (
+      <div>
+        <p>Game Over</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="table">
+      {hand ? (
+        <>
+        <Card cardId={hand.cardA.value+hand.cardA.suit} turnedDown={false} />
+        <Card cardId={hand.cardB.value+hand.cardB.suit} turnedDown={false} />
+        </>
+      ) : (
+        <p>No hand dealt yet.</p>
+      )}
+      <button onClick={retrieveHand}>Deal hand</button>
+    </div>
+  )
 }
+
 
 
 export default GameTable
