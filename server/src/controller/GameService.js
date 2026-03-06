@@ -5,6 +5,11 @@ export class GameService {
   constructor() {
     this.deck = new DeckManager();
   }
+
+  startGame() {
+    this.deck.makeNewDeck();
+  }
+
   playTurn() {
     let cards = this.deck.dealTwoCards();
 

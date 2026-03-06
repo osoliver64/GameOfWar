@@ -10,4 +10,8 @@ router.get("/playTurn", (req, res) => {
   res.json(result);
 })
 
+router.get("/startGame", (req, res) => {
+  gameService.startGame();
+})
+
 export default router;

@@ -2,8 +2,8 @@ import {Card} from "./Card.js";
 
 export default class DeckManager {
   #stack = []
-  
-  constructor() {
+
+  makeNewDeck() {
     const suits = ['S', 'C', 'D', 'H'];
     for (let cardValue = 1; cardValue <= 13; cardValue++) {
       for (let suit of suits) {
